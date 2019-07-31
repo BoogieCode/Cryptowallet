@@ -1,0 +1,52 @@
+﻿@model Cryptowallet.Models.ExchangeViewModel
+@{
+    TempData["TransactionType"] = ViewBag.Title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr>
+@using (Html.BeginForm())
+{
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.toCurrency, new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.toCurrency, Model.toCurrency, new { @class = "hidden" })
+        @Html.Label(Model.toCurrency.ToString())
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Amount, new { @class = "col-md-2 control-label" })
+        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" ,@type="number"})
+        @Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+        
+    </div>
+    <div class="form-group">
+        
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+    <div class="form-group">
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <input type="submit" value="@ViewBag.Title" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+<font color="green">
+            @ViewBag.successMessage</font>
+
+@section Scripts{
+        <script type="text/javascript">
+          if('@ViewBag.successMessage'!="")
+          {
+              $('#divSuccessMessage').show();
+          } 
+            else
+          {
+             $('#divSuccessMessage').hide();
+          }
+        </script>
+    }

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptowallet", "Cryptowallet\Cryptowallet.csproj", "{405B6247-7823-4300-841E-B1B55DE85C0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptowalletDb", "CryptowalletDb\CryptowalletDb.csproj", "{DCFE2CFF-6CA5-4677-9C28-EA5680A7F4EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoWalletExchange", "CryptoWalletExchange\CryptoWalletExchange.csproj", "{7FC3B58B-202F-49E2-B06A-61BAAACA1F67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{405B6247-7823-4300-841E-B1B55DE85C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405B6247-7823-4300-841E-B1B55DE85C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405B6247-7823-4300-841E-B1B55DE85C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405B6247-7823-4300-841E-B1B55DE85C0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCFE2CFF-6CA5-4677-9C28-EA5680A7F4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFE2CFF-6CA5-4677-9C28-EA5680A7F4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFE2CFF-6CA5-4677-9C28-EA5680A7F4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFE2CFF-6CA5-4677-9C28-EA5680A7F4EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC3B58B-202F-49E2-B06A-61BAAACA1F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC3B58B-202F-49E2-B06A-61BAAACA1F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC3B58B-202F-49E2-B06A-61BAAACA1F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC3B58B-202F-49E2-B06A-61BAAACA1F67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {227DB9B6-8C91-4242-AC18-2F305C57F101}
+	EndGlobalSection
+EndGlobal

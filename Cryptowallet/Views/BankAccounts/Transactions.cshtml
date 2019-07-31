@@ -1,0 +1,296 @@
+﻿@model List<Cryptowallet.Models.TransactionViewModel>
+
+@{
+    ViewBag.Title = "MyTransactions";
+    List<Cryptowallet.Models.TransactionViewModel> deposit = Model.Where(t => t.FromUser == t.ToUser && t.FromCurrency == t.ToCurrency && t.FromCurrency == "EUR").ToList();
+    List<Cryptowallet.Models.TransactionViewModel> exchange = Model.Where(t => t.FromUser == t.ToUser && t.FromCurrency != t.ToCurrency).ToList();
+    List<Cryptowallet.Models.TransactionViewModel> incomeTrnasactions = Model.Where(t => t.FromUser != t.ToUser && t.ToUser == User.Identity.Name).ToList();
+    List<Cryptowallet.Models.TransactionViewModel> outcomeTransactions = Model.Where(t => t.FromUser != t.ToUser && t.FromUser == User.Identity.Name).ToList();
+    List<Cryptowallet.Models.TransactionViewModel> allTransactions = Model.ToList();
+
+
+    //exchange , income transactions ,outgoingtransactions
+    //DE FACUT VIEWUL ASTA,EXCHANGEUL SI TOTALURILE
+}
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
+</head>
+
+
+<br />
+<h3>Transactions</h3>
+<hr />
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-color" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Deposit
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            DATA
+                        </th>
+                        <th>
+                            AMOUNT
+                        </th>
+                        <th>
+                            CURENCY
+                        </th>
+                    </tr>
+
+                    @foreach (var transaction in deposit)
+                    {
+                        <tr>
+                            <td>
+                                @transaction.dateTime
+                            </td>
+                            <td>
+                                @transaction.Amount
+                            </td>
+                            <td>
+                                @transaction.FromCurrency
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Exchange
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            DATA
+                        </th>
+                        <th>
+                            AMOUNT
+                        </th>
+                        <th>
+                            FROM CURRENCY
+                        </th>
+                        <th>
+                            TO CURRENCY
+                        </th>
+                        <th>
+                            RATE
+                        </th>
+                    </tr>
+
+                    @foreach (var transaction in exchange)
+                    {
+                    <tr>
+                        <td>
+                            @transaction.dateTime
+                        </td>
+                        <td>
+                            @transaction.Amount
+                        </td>
+                        <td>
+                            @transaction.FromCurrency
+                        </td>
+                        <td>
+                            @transaction.ToCurrency
+                        </td>
+                        <td>
+                            @transaction.Rate
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo2">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+                    Outcoming transactions
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseTwo2">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            DATA
+                        </th>
+                        <th>
+                            AMOUNT
+                        </th>
+                        <th>
+                            CURENCY
+                        </th>
+                        <th>
+                            FROM
+                        </th>
+                    </tr>
+
+                    @foreach (var transaction in outcomeTransactions)
+                    {
+                        <tr>
+                            <td>
+                                @transaction.dateTime
+                            </td>
+                            <td>
+                                @transaction.Amount
+                            </td>
+                            <td>
+                                @transaction.FromCurrency
+                            </td>
+                            <td>
+                                @transaction.ToUser
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Incoming transactions
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            DATA
+                        </th>
+                        <th>
+                            AMOUNT
+                        </th>
+                        <th>
+                            CURENCY
+                        </th>
+                        <th>
+                            FROM
+                        </th>
+                    </tr>
+
+                    @foreach (var transaction in incomeTrnasactions)
+                    {
+                        <tr>
+                            <td>
+                                @transaction.dateTime
+                            </td>
+                            <td>
+                                @transaction.Amount
+                            </td>
+                            <td>
+                                @transaction.FromCurrency
+                            </td>
+                            <td>
+                                @transaction.FromUser
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree1">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree1" aria-expanded="false" aria-controls="collapseThree1">
+                    All transactions
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree1">
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            DATA
+                        </th>
+                        <th>
+                            AMOUNT
+                        </th>
+                        <th>
+                            FROM USER
+                        </th>
+                        <th>
+                            TO USER
+                        </th>
+                        <th>
+                            FROM CURRENCY
+                        </th>
+                        <th>
+                            TO CURRENCY
+                        </th>
+                    </tr>
+
+                    @foreach (var transaction in allTransactions)
+                    {
+                        <tr>
+                            <td>
+                                @transaction.dateTime
+                            </td>
+                            <td>
+                                @transaction.Amount
+                            </td>
+                            <td>
+                                @transaction.FromUser
+                            </td>
+                            <td>
+                                @transaction.ToUser
+                            </td>
+                            <td>
+                                @transaction.FromCurrency
+                            </td>
+                            <td>
+                                @transaction.ToCurrency
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.panel-heading').click(function (e) {
+                $('.panel-heading').removeClass('tab-collapsed');
+                var collapsCrnt = $(this).find('.collapse-controle').attr('aria-expanded');
+                if (collapsCrnt != 'true') {
+                    $(this).addClass('tab-collapsed');
+                }
+            });
+        }) 
+    </script>
+}*@

@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CryptoWalletDbTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersBankAccounts">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Currency" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersTransactions">
+          <Key>
+            <PropertyRef Name="TransactionsId" />
+          </Key>
+          <Property Name="TransactionsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromAccount" Type="int" Nullable="false" />
+          <Property Name="ToAccount" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="CurrencyRate" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="TransactionData" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UsersBankAccounts_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersBankAccounts" Type="Self.UsersBankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersBankAccounts">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersTransactions_UsersBankAccounts">
+          <End Role="UsersBankAccounts" Type="Self.UsersBankAccounts" Multiplicity="1" />
+          <End Role="UsersTransactions" Type="Self.UsersTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersBankAccounts">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="UsersTransactions">
+              <PropertyRef Name="FromAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersTransactions_UsersBankAccounts1">
+          <End Role="UsersBankAccounts" Type="Self.UsersBankAccounts" Multiplicity="1" />
+          <End Role="UsersTransactions" Type="Self.UsersTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersBankAccounts">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="UsersTransactions">
+              <PropertyRef Name="ToAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CryptoWalletDbTestModelStoreContainer">
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersBankAccounts" EntityType="Self.UsersBankAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersTransactions" EntityType="Self.UsersTransactions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UsersBankAccounts_Users" Association="Self.FK_UsersBankAccounts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersBankAccounts" EntitySet="UsersBankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersTransactions_UsersBankAccounts" Association="Self.FK_UsersTransactions_UsersBankAccounts">
+            <End Role="UsersBankAccounts" EntitySet="UsersBankAccounts" />
+            <End Role="UsersTransactions" EntitySet="UsersTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersTransactions_UsersBankAccounts1" Association="Self.FK_UsersTransactions_UsersBankAccounts1">
+            <End Role="UsersBankAccounts" EntitySet="UsersBankAccounts" />
+            <End Role="UsersTransactions" EntitySet="UsersTransactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CryptoWalletDbTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UsersBankAccounts" Relationship="Self.FK_UsersBankAccounts_Users" FromRole="Users" ToRole="UsersBankAccounts" />
+        </EntityType>
+        <EntityType Name="UsersBankAccount">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Currency" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UsersBankAccounts_Users" FromRole="UsersBankAccounts" ToRole="Users" />
+          <NavigationProperty Name="UsersTransactions" Relationship="Self.FK_UsersTransactions_UsersBankAccounts" FromRole="UsersBankAccounts" ToRole="UsersTransactions" />
+          <NavigationProperty Name="UsersTransactions1" Relationship="Self.FK_UsersTransactions_UsersBankAccounts1" FromRole="UsersBankAccounts" ToRole="UsersTransactions" />
+        </EntityType>
+        <EntityType Name="UsersTransaction">
+          <Key>
+            <PropertyRef Name="TransactionsId" />
+          </Key>
+          <Property Name="TransactionsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromAccount" Type="Int32" Nullable="false" />
+          <Property Name="ToAccount" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="CurrencyRate" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="TransactionData" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UsersBankAccount" Relationship="Self.FK_UsersTransactions_UsersBankAccounts" FromRole="UsersTransactions" ToRole="UsersBankAccounts" />
+          <NavigationProperty Name="UsersBankAccount1" Relationship="Self.FK_UsersTransactions_UsersBankAccounts1" FromRole="UsersTransactions" ToRole="UsersBankAccounts" />
+        </EntityType>
+        <Association Name="FK_UsersBankAccounts_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UsersBankAccounts" Type="Self.UsersBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersBankAccounts">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersTransactions_UsersBankAccounts">
+          <End Role="UsersBankAccounts" Type="Self.UsersBankAccount" Multiplicity="1" />
+          <End Role="UsersTransactions" Type="Self.UsersTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersBankAccounts">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="UsersTransactions">
+              <PropertyRef Name="FromAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersTransactions_UsersBankAccounts1">
+          <End Role="UsersBankAccounts" Type="Self.UsersBankAccount" Multiplicity="1" />
+          <End Role="UsersTransactions" Type="Self.UsersTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersBankAccounts">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="UsersTransactions">
+              <PropertyRef Name="ToAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CryptoWalletDbTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UsersBankAccounts" EntityType="Self.UsersBankAccount" />
+          <EntitySet Name="UsersTransactions" EntityType="Self.UsersTransaction" />
+          <AssociationSet Name="FK_UsersBankAccounts_Users" Association="Self.FK_UsersBankAccounts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersBankAccounts" EntitySet="UsersBankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersTransactions_UsersBankAccounts" Association="Self.FK_UsersTransactions_UsersBankAccounts">
+            <End Role="UsersBankAccounts" EntitySet="UsersBankAccounts" />
+            <End Role="UsersTransactions" EntitySet="UsersTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersTransactions_UsersBankAccounts1" Association="Self.FK_UsersTransactions_UsersBankAccounts1">
+            <End Role="UsersBankAccounts" EntitySet="UsersBankAccounts" />
+            <End Role="UsersTransactions" EntitySet="UsersTransactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CryptoWalletDbTestModelStoreContainer" CdmEntityContainer="CryptoWalletDbTestEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CryptoWalletDbTestModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersBankAccounts">
+            <EntityTypeMapping TypeName="CryptoWalletDbTestModel.UsersBankAccount">
+              <MappingFragment StoreEntitySet="UsersBankAccounts">
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersTransactions">
+            <EntityTypeMapping TypeName="CryptoWalletDbTestModel.UsersTransaction">
+              <MappingFragment StoreEntitySet="UsersTransactions">
+                <ScalarProperty Name="TransactionsId" ColumnName="TransactionsId" />
+                <ScalarProperty Name="FromAccount" ColumnName="FromAccount" />
+                <ScalarProperty Name="ToAccount" ColumnName="ToAccount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CurrencyRate" ColumnName="CurrencyRate" />
+                <ScalarProperty Name="TransactionData" ColumnName="TransactionData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

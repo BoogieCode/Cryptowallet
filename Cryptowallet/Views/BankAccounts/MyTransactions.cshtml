@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CryptowalletDb.Domain.UserTransaction>
+
+@{
+    ViewBag.Title = "MyTransactions";
+}
+
+<h2>MyTransactions</h2>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FromAccountId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromAccount.Currency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromAccountId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToAccountId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @try
+            {
+                @Html.DisplayFor(modelItem => item.FromAccount.Currency)
+            }
+            catch (Exception)
+            {
+                @Html.DisplayFor(modelItem => item.ToAccount.Currency)
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionDate)
+        </td>
+        
+    </tr>
+}
+
+</table>

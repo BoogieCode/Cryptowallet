@@ -1,0 +1,58 @@
+﻿@model Cryptowallet.Models.SendViewModel
+@{
+    ViewBag.Title = "Send";
+}
+
+<h2>Send to a friend</h2>
+<hr />
+
+    @using (Html.BeginForm())
+    {
+
+        <h3>Send</h3>
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.Amount, new { @class = "col-md-2 control-label" })*@
+            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "number"})
+            @Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.SenderAccountId, new { @class = "col-md-2 control-label" })*@
+            @Html.DropDownListFor(m => m.SenderAccountId, Model.SenderAccounts, new { @class = "form-control" })
+        </div>
+
+        <h3>To</h3>
+        <div class="form-group">
+            @* @Html.LabelFor(m => m.ReciverName, new { @class = "col-md-2 control-label" })*@
+            @Html.TextBoxFor(m => m.ReciverName, new { @class = "form-control" })
+            <p>(email)</p>
+            @Html.ValidationMessageFor(m => m.ReciverName, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <div class="form-group">
+                <div class="col-md-offset-2">
+                    <input type="submit" value="Send" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+    <font color="green">
+        @ViewBag.successMessage
+    </font>
+
+
+@section Scripts{
+    <script type="text/javascript">
+          if('@ViewBag.successMessage'!="")
+          {
+              $('#divSuccessMessage').show();
+          }
+            else
+          {
+             $('#divSuccessMessage').hide();
+          }
+    </script>
+}

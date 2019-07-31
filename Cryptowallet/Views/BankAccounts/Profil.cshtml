@@ -1,0 +1,33 @@
+﻿@model Cryptowallet.Models.ProfilViewModel
+
+@{
+    ViewBag.Title = "Profil";
+
+    
+}
+
+<h2>Profil</h2>
+<hr />
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        
+    </dl>
+</div>

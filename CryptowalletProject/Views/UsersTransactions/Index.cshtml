@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CryptowalletProject.Models.UsersTransaction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrencyRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsersBankAccount.AccountId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsersBankAccount1.AccountId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrencyRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionData)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsersBankAccount.AccountId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsersBankAccount1.AccountId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TransactionsId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TransactionsId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TransactionsId })
+        </td>
+    </tr>
+}
+
+</table>

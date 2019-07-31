@@ -1,0 +1,60 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{   
+
+    <ul class="nav navbar-nav"> 
+        <li>
+            <div style=" border-left: 3px solid #f6f3f3;
+  height: 30px;
+  position: absolute;
+  margin:10px;
+  left: 50%;
+  margin-left: -3px;
+  top: 0;"></div>
+        </li>
+        <li>@Html.ActionLink("Profil", "Profil", "BankAccounts")</li>
+        <li>@Html.ActionLink("Deposit", "Deposit", "BankAccounts")</li>
+        <li>@Html.ActionLink("Wallet", "Wallet", "BankAccounts")</li>
+        <li>@Html.ActionLink("Market", "Market", "BankAccounts")</li>
+        <li>@Html.ActionLink("Send to a friend", "Send", "BankAccounts")</li>
+        <li>@Html.ActionLink("Exchange", "Exchange", "BankAccounts")</li>
+        <li>@Html.ActionLink("Transactions", "Transactions", "BankAccounts")</li>
+    
+    </ul>
+
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post,
+        new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken();
+
+
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink(User.Identity.Name, "Profil", "BankAccounts")</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+
+    }
+}
+else
+{
+
+        <ul class="nav navbar-nav">
+            <li>
+                <div style=" border-left: 3px solid #f6f3f3;
+  height: 30px;
+  position: absolute;
+  margin:10px;
+  left: 50%;
+  margin-left: -3px;
+  top: 0;"></div>
+            </li>
+            <li>@Html.ActionLink("Market", "Market", "BankAccounts")</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+            <li>@Html.ActionLink("Register", "RegisterUser", "Account")</li>
+
+        </ul>
+        }

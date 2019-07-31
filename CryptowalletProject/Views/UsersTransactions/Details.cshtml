@@ -1,0 +1,58 @@
+﻿@model CryptowalletProject.Models.UsersTransaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UsersTransaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrencyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrencyRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsersBankAccount.AccountId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsersBankAccount.AccountId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsersBankAccount1.AccountId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsersBankAccount1.AccountId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionsId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

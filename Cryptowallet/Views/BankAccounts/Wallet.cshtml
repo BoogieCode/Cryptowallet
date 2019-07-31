@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Cryptowallet.Models.WalletViewModel>
+
+@{
+    ViewBag.Title = "Wallet";
+}
+
+<h2>Wallet</h2>
+<hr />
+<table class="table table-hover">
+    <thead class="progress-bar-success">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomAverage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                <img src="~/Content/cryptocurrencies/@(item.Currency.ToString()).png" alt="cryptocurrency" style="width:40px; height:40px; margin-right:7px">
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @if (item.CustomAverage > 0)
+                {
+                    <div style="color: green">
+                        @Html.DisplayFor(modelItem => item.CustomAverage)
+                        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                    </div>
+                }
+                else
+                {
+                    <div style="color: red">
+                        @Html.DisplayFor(modelItem => item.CustomAverage)
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                    </div>
+                }
+            </td>
+            <td>
+                @if (item.Currency != "EUR")
+                {
+                    @Html.ActionLink("Buy", "MakeTransactions", new { transactionType = 1, currency = item.Currency }, new { @style = "color:GREEN;" })
+                    <br />
+                    @Html.ActionLink("Sell", "MakeTransactions", new { transactionType = 0, currency = item.Currency }, new { @style = "color:RED;" })
+                }
+                else
+                {
+                    @Html.ActionLink("Deposit", "Deposit", "BankAccounts")
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<hr />
+<div class="form-group">
+    <div class="form-group">
+        <button onclick="computeTotals()" class="btn btn-success">Convert all in Euro</button>
+        <div id="totalsInEuro" class="hidden">
+            <br />
+            Total in EUR: <span id="totalsValue" />
+        </div>
+
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="form-group">
+        <button onclick="CalculateProfit()" class="btn btn-success">Profit</button>
+        <div id="calcProfit" class="hidden">
+            <br />
+            Profit in EUR: <span id="calcProfitValue" />
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function computeTotals() {
+        var element = document.getElementById("totalsInEuro");
+        element.classList.remove("hidden");
+        $.ajax({
+            url: '/BankAccounts/ComputeTotalInEuro',
+            type: "GET",
+            success: function (data) {
+                $(document.getElementById("totalsValue")).html(data);
+            }
+        });
+    }
+
+    function CalculateProfit() {
+        var element = document.getElementById("calcProfit");
+        element.classList.remove("hidden");
+        $.ajax({
+            url: '/BankAccounts/CalculateProfit',
+            type: "GET",
+            success: function (data) {
+                $(document.getElementById("calcProfitValue")).html(data);
+            }
+        });
+    }
+
+
+</script>
+
+

@@ -1,0 +1,40 @@
+﻿@model Cryptowallet.Models.DepositViewModel
+
+@{
+    ViewBag.Title = "Deposit";
+}
+
+<h2>Deposit in EUR</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Amount, new { @class = "col-md-2 control-label" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control" ,@type="number" })
+                </td>
+                <td><p style="padding-left:1em"> EURO</p></td>
+            </tr>
+        </table>
+        @Html.ValidationMessageFor(u => u.Amount, "", new { @class = "text-danger" })
+
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <input type="submit" value="Submit" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

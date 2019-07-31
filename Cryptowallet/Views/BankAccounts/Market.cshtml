@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Cryptowallet.Models.MarketViewModel>
+
+@{
+    ViewBag.Title = "Market";
+}
+
+<h2>Market</h2>
+<hr />
+<table class="table table-hover">
+    <thead class="progress-bar-success" >
+
+        <tr>
+            <th></th>
+            @foreach (var item in Model)
+            {
+
+                <th style="text-align:center">
+                    @Html.DisplayFor(model => item.Currency)
+                </th>
+            }
+
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th class="progress-bar-success" style="text-align:center">
+                @Html.DisplayFor(modelItem => item.Currency)
+            </th>
+            @foreach (var rate in item.ExchangeRates)
+            {
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => rate.Rate)
+                </td>
+            }
+        </tr>
+    }
+
+</table>
